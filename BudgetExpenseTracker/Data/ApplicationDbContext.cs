@@ -9,7 +9,7 @@ namespace BudgetExpenseTracker.Models
             : base(options)
         { }
 
-        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Transactions> Transactions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Budget> Budgets { get; set; }
 
@@ -29,11 +29,11 @@ namespace BudgetExpenseTracker.Models
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Category>()
+           /* modelBuilder.Entity<Category>()
                 .HasOne(c => c.User)
                 .WithMany()
                 .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
         }
     }
 }

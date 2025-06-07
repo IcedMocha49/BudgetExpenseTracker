@@ -1,21 +1,5 @@
-html {
-  font-size: 14px;
-}
-body {
-    min-height: 100vh;
-    background-color: cadetblue;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.login-page-bg {
-    background-color: #7f5b9d;
-}
-.register-page-bg {
-    background-color: cadetblue;
+﻿body {
+    background-color: lavender
 }
 
 .sidebar {
@@ -56,17 +40,25 @@ body {
             background-color: #0d6efd;
             color: #fff;
         }
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+
+#current-date {
+    font-weight: 600;
+    font-size: 18px;
+}
+.custom-rounded-input .form-control {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.custom-rounded-input .input-group-text {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 }
-
-
-
-.main-content {
-    margin-left: 220px;
+.table tbody tr {
+    background-color: white;
+}
+#chart-container {
+    max-width: 700px;
+    max-height: 400px;
+    margin: auto;
 }

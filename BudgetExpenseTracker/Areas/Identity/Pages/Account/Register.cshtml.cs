@@ -71,6 +71,13 @@ namespace BudgetExpenseTracker.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -157,17 +164,28 @@ namespace BudgetExpenseTracker.Areas.Identity.Pages.Account
 
         private ApplicationUser CreateUser()
         {
-            try
+            return new ApplicationUser
             {
-                return Activator.CreateInstance<ApplicationUser>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
+                FirstName = Input.FirstName,
+                LastName = Input.LastName,
+                Email = Input.Email,
+                UserName = Input.Email
+            };
         }
+
+        /* private ApplicationUser CreateUser()
+         {
+             try
+             {
+                 return Activator.CreateInstance<ApplicationUser>();
+             }
+             catch
+             {
+                 throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                     $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+             }
+         }*/
 
         private IUserEmailStore<ApplicationUser> GetEmailStore()
         {

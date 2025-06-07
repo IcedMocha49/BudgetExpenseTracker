@@ -1,23 +1,21 @@
-using BudgetExpenseTracker.Data;
+
 using BudgetExpenseTracker.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BudgetExpenseTracker.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using BudgetExpenseTracker.Interfaces;
+using BudgetExpenseTracker.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-  //  options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+//set RequireConfirmedAccount to false for development
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();  // password reset tokens, features
+    .AddDefaultTokenProviders(); 
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -26,12 +24,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 
-// Register IEmailSender implementation
 builder.Services.AddSingleton<IEmailSender, SmtpEmailSender>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddAuthorization();
+
 
 var app = builder.Build();
 
@@ -58,8 +56,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
        name: "default",
-       // pattern: "{controller=Home}/{action=Index}/{id?}");
-pattern: "{controller=Dashboard}/{action=Index}/{id?}");
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
